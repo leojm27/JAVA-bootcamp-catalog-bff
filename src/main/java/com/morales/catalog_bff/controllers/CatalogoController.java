@@ -5,9 +5,7 @@ import com.morales.catalog_bff.services.CatalogoService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
@@ -48,6 +46,18 @@ public class CatalogoController {
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error al obtener producto con ID " + id);
+        }
+    }
+
+    @PostMapping("/api/catalogo/productos")
+    public ResponseEntity<?> createProducto(@RequestBody CatalogoProductoDTO catalogoProductoDTO) {
+        try {
+            CatalogoProductoDTO nuevoCatalogoProducto = catalogoService.createProducto(catalogoProductoDTO);
+            return ResponseEntity.status(HttpStatus.CREATED).body(nuevoCatalogoProducto);
+        } catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error al crear producto: " + e.getMessage());
         }
     }
 }

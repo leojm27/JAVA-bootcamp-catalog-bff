@@ -49,4 +49,45 @@ public class CatalogoServiceImpl implements CatalogoService {
         return null;
     }
 
+    @Override
+    public CatalogoProductoDTO createProducto(CatalogoProductoDTO productoCrear) {
+        ProductoDTO productoCreado;
+        InventarioProductoDTO inventarioCreado;
+        CategoriaDTO categoria = productClient.getCategoriaById(productoCrear.getCategoriaId());
+
+        if (categoria == null) {
+            throw new IllegalArgumentException("Categoría no encontrada, Id: " + productoCrear.getCategoriaId());
+        }
+
+        ProductoDTO producto = new ProductoDTO(
+                productoCrear.getProductoName(),
+                productoCrear.getProductoDescripcion(),
+                productoCrear.getProductoPrecio(),
+                productoCrear.getCategoriaId()
+        );
+
+        try {
+            productoCreado = productClient.createProducto(producto);
+            InventarioProductoDTO inventarioProducto = new InventarioProductoDTO(
+                    productoCreado.getId(),
+                    productoCrear.getInventarioCantidad(),
+                    10L
+            );
+
+            try {
+                inventarioCreado = inventoryClient.createInventarioProducto(inventarioProducto);
+                if (inventarioCreado == null) {
+                    throw new RuntimeException("Error al crear el inventario del producto");
+                }
+            } catch (Exception e) {
+                productClient.softDeleteProducto(productoCreado.getId());
+                throw new RuntimeException("Error al crear el inventario del producto: " + e.getMessage(), e);
+            }
+
+            return CatalogoMapper.mapToCatalogProductDTO(productoCreado, categoria, inventarioCreado);
+        } catch (Exception e) {
+            throw new RuntimeException("Error al crear el producto: " + e.getMessage(), e);
+        }
+    }
+
 }

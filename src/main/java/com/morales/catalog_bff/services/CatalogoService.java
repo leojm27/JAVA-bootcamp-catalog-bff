@@ -10,4 +10,6 @@ public interface CatalogoService {
     List<CatalogoProductoDTO> getCatalogoProductos();
 
     CatalogoProductoDTO getProductoById(Long id);
+
+    CatalogoProductoDTO createProducto(CatalogoProductoDTO producto);
 }

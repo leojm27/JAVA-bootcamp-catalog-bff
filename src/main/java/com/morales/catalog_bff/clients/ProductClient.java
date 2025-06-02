@@ -4,8 +4,10 @@ import com.morales.catalog_bff.dto.CategoriaDTO;
 import com.morales.catalog_bff.dto.ProductoDTO;
 import com.morales.catalog_bff.security.FeignClientConfig;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -28,6 +30,13 @@ public interface ProductClient {
     @GetMapping("/productos/{id}")
     ProductoDTO getProductoById(@PathVariable Long id);
 
+    /** * Crea un nuevo producto.
+     * @param productoDTO Producto a crear.
+     * @return Producto creado.
+     */
+    @PostMapping("/productos")
+    ProductoDTO createProducto(ProductoDTO productoDTO);
+
     /**
      * Retorna una lista de categorías.
      */
@@ -40,5 +49,8 @@ public interface ProductClient {
      */
     @GetMapping("/categorias/{id}")
     CategoriaDTO getCategoriaById(@PathVariable Long id);
+
+    @DeleteMapping("/productos/{id}")
+    void softDeleteProducto(@PathVariable Long id);
 
 }

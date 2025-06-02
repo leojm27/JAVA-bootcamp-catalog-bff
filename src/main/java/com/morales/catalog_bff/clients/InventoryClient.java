@@ -5,6 +5,7 @@ import com.morales.catalog_bff.security.FeignClientConfig;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -29,5 +30,13 @@ public interface InventoryClient {
      */
     @GetMapping("inventario-producto/por-producto/{productId}")
     InventarioProductoDTO getInventarioProductoPorProductoId(@PathVariable Long productId);
+
+    /**
+     * Crea un nuevo inventario de producto.
+     * @param inventarioProductoDTO DTO del inventario de producto a crear
+     * @return InventarioProductoDTO creado
+     */
+    @PostMapping("/inventario-producto")
+    InventarioProductoDTO createInventarioProducto(InventarioProductoDTO inventarioProductoDTO);
 
 }
