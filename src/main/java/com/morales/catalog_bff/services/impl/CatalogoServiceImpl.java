@@ -7,7 +7,7 @@ import com.morales.catalog_bff.dto.CategoriaDTO;
 import com.morales.catalog_bff.dto.InventarioProductoDTO;
 import com.morales.catalog_bff.dto.ProductoDTO;
 import com.morales.catalog_bff.services.CatalogoService;
-import com.morales.catalog_bff.mappers.CatalogMapper;
+import com.morales.catalog_bff.mappers.CatalogoMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +26,7 @@ public class CatalogoServiceImpl implements CatalogoService {
         List<CategoriaDTO> categorias = productClient.getCategorias();
         List<InventarioProductoDTO> inventarios = inventoryClient.getInventarioProductos();
 
-        return CatalogMapper.mapToCatalogProductDTOList(productos, categorias, inventarios);
+        return CatalogoMapper.mapToCatalogProductDTOList(productos, categorias, inventarios);
     }
 
 
@@ -43,7 +43,7 @@ public class CatalogoServiceImpl implements CatalogoService {
         }
 
         if (producto != null && categoria != null && inventarioProducto != null) {
-            return CatalogMapper.mapToCatalogProductDTO(producto, categoria, inventarioProducto);
+            return CatalogoMapper.mapToCatalogProductDTO(producto, categoria, inventarioProducto);
         }
 
         return null;

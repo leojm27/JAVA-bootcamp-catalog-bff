@@ -8,7 +8,7 @@ import com.morales.catalog_bff.dto.ProductoDTO;
 import java.util.List;
 import java.util.Objects;
 
-public class CatalogMapper {
+public class CatalogoMapper {
 
     /** * Mapea una lista de ProductoDTO, CategoriaDTO e InventarioProductoDTO a una lista de CatalogoProductoDTO.
      *
