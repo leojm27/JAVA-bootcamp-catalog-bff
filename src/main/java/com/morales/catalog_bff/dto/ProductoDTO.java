@@ -26,4 +26,11 @@ public class ProductoDTO {
 
     private Date deletedAt;
 
+    public ProductoDTO(Long id, String nombre, String descripcion, Double precio, Long idCategoria) {
+        this.id = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.precio = precio;
+        this.idCategoria = idCategoria;
+    }
 }

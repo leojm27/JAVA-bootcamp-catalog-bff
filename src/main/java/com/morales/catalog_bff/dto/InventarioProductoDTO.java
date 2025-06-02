@@ -24,4 +24,10 @@ public class InventarioProductoDTO {
 
     private Date deletedAt;
 
+    public InventarioProductoDTO(Long id, Long productoId, Long cantidad, Long cantidadMinima) {
+        this.id = id;
+        this.productoId = productoId;
+        this.cantidad = cantidad;
+        this.cantidadMinima = cantidadMinima;
+    }
 }

@@ -22,4 +22,9 @@ public class CategoriaDTO {
 
     private Date deletedAt;
 
+    public CategoriaDTO(Long id, String nombre, String descripcion) {
+        this.id = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+    }
 }
