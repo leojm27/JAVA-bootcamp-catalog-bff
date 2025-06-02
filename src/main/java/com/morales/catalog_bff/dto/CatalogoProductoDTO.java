@@ -27,4 +27,6 @@ public class CatalogoProductoDTO {
 
     private Long inventarioCantidad;
 
+    private Long inventarioCantidadMinima;
+
 }

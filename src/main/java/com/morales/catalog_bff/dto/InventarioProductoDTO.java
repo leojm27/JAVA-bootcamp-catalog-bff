@@ -29,5 +29,13 @@ public class InventarioProductoDTO {
         this.productoId = productoId;
         this.cantidad = cantidad;
         this.cantidadMinima = cantidadMinima;
+        this.createdAt = new Date();
+    }
+
+    public InventarioProductoDTO(Long productoId, Long cantidad, Long cantidadMinima) {
+        this.productoId = productoId;
+        this.cantidad = cantidad;
+        this.cantidadMinima = cantidadMinima;
+        this.createdAt = new Date();
     }
 }

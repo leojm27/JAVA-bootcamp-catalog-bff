@@ -72,7 +72,8 @@ public class CatalogoControllerTests {
                                 "Computación",
                                 "Productos relacionados con computadoras, accesorios y tecnología.",
                                 1L,
-                                28L
+                                28L,
+                                10L
                 ));
 
         ResponseEntity<?> response = catalogoController.getProductoById(id);

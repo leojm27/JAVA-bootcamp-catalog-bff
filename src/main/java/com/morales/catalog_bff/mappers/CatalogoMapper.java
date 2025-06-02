@@ -58,6 +58,7 @@ public class CatalogoMapper {
         catalogoProductoDTO.setCategoriaDescripcion(categoria.getDescripcion());
         catalogoProductoDTO.setInventarioId(inventarioProducto.getId());
         catalogoProductoDTO.setInventarioCantidad(inventarioProducto.getCantidad());
+        catalogoProductoDTO.setInventarioCantidadMinima(inventarioProducto.getCantidadMinima());
         return catalogoProductoDTO;
     }
 

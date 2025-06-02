@@ -26,5 +26,12 @@ public class CategoriaDTO {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
+        this.createdAt = new Date();
+    }
+
+    public CategoriaDTO(String nombre, String descripcion) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.createdAt = new Date();
     }
 }

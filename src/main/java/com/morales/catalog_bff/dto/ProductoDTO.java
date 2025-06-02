@@ -32,5 +32,14 @@ public class ProductoDTO {
         this.descripcion = descripcion;
         this.precio = precio;
         this.idCategoria = idCategoria;
+        this.createdAt = new Date();
+    }
+
+    public ProductoDTO(String nombre, String descripcion, Double precio, Long idCategoria) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.precio = precio;
+        this.idCategoria = idCategoria;
+        this.createdAt = new Date();
     }
 }
