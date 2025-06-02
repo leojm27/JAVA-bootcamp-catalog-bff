@@ -12,6 +12,6 @@ public class CatalogBffApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CatalogBffApplication.class, args);
-		System.out.println("Product BFF Application is running!");
+		System.out.println("BFF 'Catalog-bff' iniciado correctamente.");
 	}
 }

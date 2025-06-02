@@ -15,6 +15,10 @@ public class ProductoController {
 
     private final CatalogoService catalogoService;
 
+    /**
+     * Obtiene todos los productos del catálogo.
+     * @return ResponseEntity con la lista de productos o un mensaje de error.
+     */
     @GetMapping("/api/catalogo/productos")
     public ResponseEntity<?> getCatalogoProductos(){
         try {
@@ -26,6 +30,11 @@ public class ProductoController {
         }
     }
 
+    /**
+     * Obtiene un producto del catálogo por su ID.
+     * @param id ID del producto a buscar.
+     * @return ResponseEntity con el producto encontrado o un mensaje de error.
+     */
     @GetMapping("/api/catalogo/productos/{id}")
     public ResponseEntity<?> getProductoById(@PathVariable Long id) {
         try {

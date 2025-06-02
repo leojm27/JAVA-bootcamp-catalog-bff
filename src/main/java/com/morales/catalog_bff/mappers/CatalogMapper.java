@@ -1,23 +1,31 @@
 package com.morales.catalog_bff.mappers;
 
 import com.morales.catalog_bff.dto.CatalogoProductoDTO;
-import com.morales.catalog_bff.models.Categoria;
-import com.morales.catalog_bff.models.InventarioProducto;
-import com.morales.catalog_bff.models.Producto;
+import com.morales.catalog_bff.dto.CategoriaDTO;
+import com.morales.catalog_bff.dto.InventarioProductoDTO;
+import com.morales.catalog_bff.dto.ProductoDTO;
 
 import java.util.List;
+import java.util.Objects;
 
 public class CatalogMapper {
 
-    public static List<CatalogoProductoDTO> mapToCatalogProductDTOList(List<Producto> productos, List<Categoria> categorias, List<InventarioProducto> inventarios) {
+    /** * Mapea una lista de ProductoDTO, CategoriaDTO e InventarioProductoDTO a una lista de CatalogoProductoDTO.
+     *
+     * @param productos Lista de ProductoDTO.
+     * @param categorias Lista de CategoriaDTO.
+     * @param inventarios Lista de InventarioProductoDTO.
+     * @return Retorna una lista de CatalogoProductoDTO con los datos combinados de los tres DTOs.
+     */
+    public static List<CatalogoProductoDTO> mapToCatalogProductDTOList(List<ProductoDTO> productos, List<CategoriaDTO> categorias, List<InventarioProductoDTO> inventarios) {
         return productos.stream()
                 .map(producto -> {
-                    Categoria categoria = categorias.stream()
+                    CategoriaDTO categoria = categorias.stream()
                             .filter(cat -> cat.getId().equals(producto.getIdCategoria()))
                             .findFirst()
                             .orElse(null);
 
-                    InventarioProducto inventarioProducto = inventarios.stream()
+                    InventarioProductoDTO inventarioProducto = inventarios.stream()
                             .filter(inv -> inv.getProductoId().equals(producto.getId()))
                             .findFirst()
                             .orElse(null);
@@ -28,10 +36,18 @@ public class CatalogMapper {
 
                     return mapToCatalogProductDTO(producto, categoria, inventarioProducto);
                 })
+                .filter(Objects::nonNull)
                 .toList();
     }
 
-    public static CatalogoProductoDTO mapToCatalogProductDTO(Producto producto, Categoria categoria, InventarioProducto inventarioProducto) {
+    /** * Mapea un ProductoDTO, CategoriaDTO e InventarioProductoDTO a un CatalogoProductoDTO.
+     *
+     * @param producto          ProductoDTO.
+     * @param categoria         CategoriaDTO.
+     * @param inventarioProducto InventarioProductoDTO.
+     * @return Retorna CatalogoProductoDTO con los datos combinados de los tres DTOs.
+     */
+    public static CatalogoProductoDTO mapToCatalogProductDTO(ProductoDTO producto, CategoriaDTO categoria, InventarioProductoDTO inventarioProducto) {
         CatalogoProductoDTO catalogoProductoDTO = new CatalogoProductoDTO();
         catalogoProductoDTO.setProductoId(producto.getId());
         catalogoProductoDTO.setProductoName(producto.getNombre());

@@ -1,6 +1,6 @@
 package com.morales.catalog_bff.clients;
 
-import com.morales.catalog_bff.models.InventarioProducto;
+import com.morales.catalog_bff.dto.InventarioProductoDTO;
 import com.morales.catalog_bff.security.FeignClientConfig;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,10 +15,19 @@ import java.util.List;
         configuration = FeignClientConfig.class)
 public interface InventoryClient {
 
+    /**
+     * Obtiene la lista de inventarios de productos.
+     * @return Lista de InventarioProductoDTO
+     */
     @GetMapping("/inventario-producto")
-    List<InventarioProducto> getInventarioProductos();
+    List<InventarioProductoDTO> getInventarioProductos();
 
+    /**
+     * Obtiene un inventario de producto por su ID.
+     * @param id ID del inventario de producto
+     * @return InventarioProductoDTO
+     */
     @GetMapping("inventario-producto/por-producto/{productId}")
-    InventarioProducto getInventarioProductoPorProductoId(@PathVariable Long productId);
+    InventarioProductoDTO getInventarioProductoPorProductoId(@PathVariable Long productId);
 
 }
