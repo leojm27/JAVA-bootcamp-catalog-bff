@@ -26,7 +26,7 @@ public class ProductoController {
         }
     }
 
-    @GetMapping("/api/productos/{id}")
+    @GetMapping("/api/catalogo/productos/{id}")
     public ResponseEntity<?> getProductoById(@PathVariable Long id) {
         try {
             CatalogoProductoDTO catalogoProductoDTO = catalogoService.getProductoById(id);

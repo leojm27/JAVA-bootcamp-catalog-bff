@@ -13,6 +13,8 @@ public class CatalogoProductoDTO {
     private Long categoriaId;
     private String categoriaNombre;
     private  String categoriaDescripcion;
+    private Long inventarioId;
+    private Long inventarioCantidad;
 
     public CatalogoProductoDTO(Long productoId, String productoName, String productoDescripcion, Double productoPrecio, Long categoriaId, String categoriaNombre, String categoriaDescripcion) {
         this.productoId = productoId;
