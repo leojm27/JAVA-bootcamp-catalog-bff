@@ -71,7 +71,7 @@ public class CatalogoServiceImpl implements CatalogoService {
             InventarioProductoDTO inventarioProducto = new InventarioProductoDTO(
                     productoCreado.getId(),
                     productoCrear.getInventarioCantidad(),
-                    10L
+                    productoCrear.getInventarioCantidadMinima()
             );
 
             try {

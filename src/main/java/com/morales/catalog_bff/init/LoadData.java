@@ -1,6 +1,8 @@
 package com.morales.catalog_bff.init;
 
+import com.morales.catalog_bff.clients.ProductClient;
 import com.morales.catalog_bff.dto.CatalogoProductoDTO;
+import com.morales.catalog_bff.dto.ProductoDTO;
 import com.morales.catalog_bff.services.CatalogoService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -14,7 +16,9 @@ public class LoadData {
 
     @Transactional
     @Bean
-    CommandLineRunner initData(CatalogoService catalogoService){
+    CommandLineRunner initData(
+            CatalogoService catalogoService,
+            ProductClient productClient){
         return args -> {
             System.out.println("Cargando datos iniciales...");
             List<CatalogoProductoDTO> catalogoInicial = List.of(
@@ -55,9 +59,14 @@ public class LoadData {
                     )
             );
 
-            for (CatalogoProductoDTO producto : catalogoInicial) {
-                CatalogoProductoDTO creado = catalogoService.createProducto(producto);
-                System.out.println("Producto creado: " + creado);
+            List<ProductoDTO> productos = productClient.getProductos();
+
+            // Verificar si la lista de productos está vacía o nula
+            if(productos == null  || productos.isEmpty()) {
+                for (CatalogoProductoDTO producto : catalogoInicial) {
+                    CatalogoProductoDTO creado = catalogoService.createProducto(producto);
+                    System.out.println("Producto creado: " + creado);
+                }
             }
 
             System.out.println("Datos iniciales cargados correctamente.");
