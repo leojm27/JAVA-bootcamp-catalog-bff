@@ -60,7 +60,7 @@ public class CatalogoServiceImpl implements CatalogoService {
         }
 
         ProductoDTO producto = new ProductoDTO(
-                productoCrear.getProductoName(),
+                productoCrear.getProductoNombre(),
                 productoCrear.getProductoDescripcion(),
                 productoCrear.getProductoPrecio(),
                 productoCrear.getCategoriaId()

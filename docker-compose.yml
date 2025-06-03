@@ -1,0 +1,11 @@
+services:
+  app:
+    image: catalog-bff:v1
+    container_name: catalog-bff
+    ports:
+      - "8080:8080"
+    environment:
+      MS_PRODUCT_URL: http://host.docker.internal:8082/api
+      MS_INVENTORY_URL: http://host.docker.internal:8081/api
+      SPRING_SECURITY_USER_NAME: admin
+      SPRING_SECURITY_USER_PASSWORD: admin

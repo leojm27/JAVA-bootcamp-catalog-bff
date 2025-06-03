@@ -50,7 +50,7 @@ public class CatalogoMapper {
     public static CatalogoProductoDTO mapToCatalogProductDTO(ProductoDTO producto, CategoriaDTO categoria, InventarioProductoDTO inventarioProducto) {
         CatalogoProductoDTO catalogoProductoDTO = new CatalogoProductoDTO();
         catalogoProductoDTO.setProductoId(producto.getId());
-        catalogoProductoDTO.setProductoName(producto.getNombre());
+        catalogoProductoDTO.setProductoNombre(producto.getNombre());
         catalogoProductoDTO.setProductoDescripcion(producto.getDescripcion());
         catalogoProductoDTO.setProductoPrecio(producto.getPrecio());
         catalogoProductoDTO.setCategoriaId(categoria.getId());

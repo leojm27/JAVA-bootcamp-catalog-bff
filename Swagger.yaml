@@ -1,0 +1,88 @@
+openapi: 3.0.1
+info:
+  title: CATALOG-BFF
+  description: Microservicio tipo Back-end for Front-end (BFF) que actúa como orquestador entre ms-product y ms-inventory. Se encarga de combinar y formatear la información de ambos servicios para exponerla a clientes frontend de forma optimizada.
+  version: v1
+servers:
+  - url: http://localhost:8888
+    description: Generated server url
+paths:
+  /api/catalogo/productos:
+    get:
+      tags:
+        - catalogo-controller
+      operationId: getCatalogoProductos
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+    post:
+      tags:
+        - catalogo-controller
+      operationId: createProducto
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CatalogoProductoDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/catalogo/productos/{id}:
+    get:
+      tags:
+        - catalogo-controller
+      operationId: getProductoById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+components:
+  schemas:
+    CatalogoProductoDTO:
+      type: object
+      properties:
+        productoId:
+          type: integer
+          format: int64
+        productoNombre:
+          type: string
+        productoDescripcion:
+          type: string
+        productoPrecio:
+          type: number
+          format: double
+        categoriaId:
+          type: integer
+          format: int64
+        categoriaNombre:
+          type: string
+        categoriaDescripcion:
+          type: string
+        inventarioId:
+          type: integer
+          format: int64
+        inventarioCantidad:
+          type: integer
+          format: int64
+        inventarioCantidadMinima:
+          type: integer
+          format: int64

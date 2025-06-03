@@ -11,7 +11,7 @@ public class CatalogoProductoDTO {
 
     private Long productoId;
 
-    private String productoName;
+    private String productoNombre;
 
     private String productoDescripcion;
 
