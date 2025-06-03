@@ -101,4 +101,50 @@ public class CatalogoControllerTests {
         assertThat(response.getBody()).isEqualTo("Error al obtener producto con ID " + id);
     }
 
+    /* createProducto */
+    @Test
+    void testCreateProducto() {
+        CatalogoProductoDTO catalogoProductoDTO = new CatalogoProductoDTO(
+                1L,
+                "Teclado mecánico Redragon Kumara",
+                "Teclado gamer con retroiluminación LED RGB",
+                18999.0,
+                1L,
+                "Computación",
+                "Productos relacionados con computadoras, accesorios y tecnología.",
+                1L,
+                28L,
+                10L
+        );
+
+        when(catalogoService.createProducto(catalogoProductoDTO))
+                .thenReturn(catalogoProductoDTO);
+
+        ResponseEntity<?> response = catalogoController.createProducto(catalogoProductoDTO);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        assertThat(response.getBody()).isEqualTo(catalogoProductoDTO);
+    }
+
+    @Test
+    void shouldReturnExceptionInCreateProducto() {
+        CatalogoProductoDTO catalogoProductoDTO = new CatalogoProductoDTO(
+                1L,
+                "Teclado mecánico Redragon Kumara",
+                "Teclado gamer con retroiluminación LED RGB",
+                18999.0,
+                1L,
+                "Computación",
+                "Productos relacionados con computadoras, accesorios y tecnología.",
+                1L,
+                28L,
+                10L
+        );
+
+        when(catalogoService.createProducto(catalogoProductoDTO))
+                .thenThrow(new RuntimeException("Error al crear producto"));
+
+        ResponseEntity<?> response = catalogoController.createProducto(catalogoProductoDTO);
+        System.out.println("Response: " + response);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }

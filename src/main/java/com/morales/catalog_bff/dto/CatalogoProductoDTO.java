@@ -29,4 +29,12 @@ public class CatalogoProductoDTO {
 
     private Long inventarioCantidadMinima;
 
+    public CatalogoProductoDTO(String productoNombre, String productoDescripcion, Double productoPrecio, Long categoriaId, Long inventarioCantidad, Long inventarioCantidadMinima) {
+        this.productoNombre = productoNombre;
+        this.productoDescripcion = productoDescripcion;
+        this.productoPrecio = productoPrecio;
+        this.categoriaId = categoriaId;
+        this.inventarioCantidad = inventarioCantidad;
+        this.inventarioCantidadMinima = inventarioCantidadMinima;
+    }
 }

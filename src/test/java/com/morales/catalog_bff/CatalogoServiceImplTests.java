@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 public class CatalogoServiceImplTests {
@@ -43,7 +44,8 @@ public class CatalogoServiceImplTests {
             1L,
             "Teclado mecánico Redragon Kumara",
             "Teclado gamer con retroiluminación LED RGB",
-            100.0, 1L
+            100.0,
+            1L
     );
 
     CategoriaDTO categoriaDTOMock = new CategoriaDTO(
@@ -54,6 +56,19 @@ public class CatalogoServiceImplTests {
 
     InventarioProductoDTO inventarioProductoDTOMock = new InventarioProductoDTO(
             1L,
+            1L,
+            28L,
+            5L
+    );
+
+    CatalogoProductoDTO catalogoProductoDTOMock = new CatalogoProductoDTO(
+            1L,
+            "Teclado mecánico Redragon Kumara",
+            "Teclado gamer con retroiluminación LED RGB",
+            100.0,
+            1L,
+            "Computación",
+            "Productos relacionados con computadoras, accesorios y tecnología.",
             1L,
             28L,
             5L
@@ -98,5 +113,73 @@ public class CatalogoServiceImplTests {
         assertThat(result).isNull();
     }
 
+    /* createProducto */
+    @Test
+    void testCreateProducto() {
+        CatalogoProductoDTO productoCatalogo = new CatalogoProductoDTO(
+                "Teclado mecánico Redragon Kumara",
+                "Teclado gamer con retroiluminación LED RGB",
+                18999.0,
+                1L,
+                28L,
+                5L
+        );
+
+        CategoriaDTO categoriaDTO = new CategoriaDTO(1L, "Computación", "Tecnología para el hogar");
+        ProductoDTO productoCreado = new ProductoDTO(10L, "Notebook Lenovo", "Ryzen 5, 16GB RAM", 450000.0, 1L);
+        InventarioProductoDTO inventarioCreado = new InventarioProductoDTO(10L, 20L, 10L);
+
+        when(productClient.getCategoriaById(1L)).thenReturn(categoriaDTO);
+        when(productClient.createProducto(any())).thenReturn(productoCreado);
+        when(inventoryClient.createInventarioProducto(any())).thenReturn(inventarioCreado);
+
+        CatalogoProductoDTO result = catalogoServiceImpl.createProducto(productoCatalogo);
+        assertThat(result).isNotNull();
+    }
+
+    @Test
+    void shouldThrowExceptionWhenCreateProductoWithInvalidCategory() {
+        CatalogoProductoDTO productoCatalogo = new CatalogoProductoDTO(
+                "Teclado mecánico Redragon Kumara",
+                "Teclado gamer con retroiluminación LED RGB",
+                18999.0,
+                999L,
+                28L,
+                5L
+        );
+
+        when(productClient.getCategoriaById(999L)).thenReturn(null);
+
+        try {
+            catalogoServiceImpl.createProducto(productoCatalogo);
+        } catch (IllegalArgumentException e) {
+            assertThat(e.getMessage()).contains("Categoría no encontrada, Id: 999");
+        }
+    }
+
+    @Test
+    void shouldReturnInventarioCreadoNull() {
+        CatalogoProductoDTO productoCatalogo = new CatalogoProductoDTO(
+                "Teclado mecánico Redragon Kumara",
+                "Teclado gamer con retroiluminación LED RGB",
+                18999.0,
+                1L,
+                28L,
+                5L
+        );
+
+        CategoriaDTO categoriaDTO = new CategoriaDTO(1L, "Computación", "Tecnología para el hogar");
+        ProductoDTO productoCreado = new ProductoDTO(10L, "Notebook Lenovo", "Ryzen 5, 16GB RAM", 450000.0, 1L);
+
+        when(productClient.getCategoriaById(1L)).thenReturn(categoriaDTO);
+        when(productClient.createProducto(any())).thenReturn(productoCreado);
+        when(inventoryClient.createInventarioProducto(any())).thenReturn(null);
+
+        try {
+            catalogoServiceImpl.createProducto(productoCatalogo);
+        } catch (RuntimeException e) {
+            assertThat(e.getMessage()).contains("Error al crear el inventario del producto");
+        }
+    }
 
 }
